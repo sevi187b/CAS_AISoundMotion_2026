@@ -19,7 +19,12 @@ import motion_gui
 Setup Motion Player
 """
 
+"""
 motion_player.config["file_name"] = "data/mocap/Muriel_Take4_Blumen_Baile.fbx"
+motion_player.config["fps"] = 50
+"""
+
+motion_player.config["file_name"] = "data/mocap/Saskia_Waldspaziergang_Final_50hz_07.12.2025.fbx"
 motion_player.config["fps"] = 50
 
 """
