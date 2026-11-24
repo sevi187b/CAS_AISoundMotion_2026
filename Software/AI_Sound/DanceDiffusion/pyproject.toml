@@ -1,7 +1,7 @@
 [project]
 name = "dance-diffusion"
 version = "0.1.0"
-description = "Harmonai Dance Diffusion (sample-generator + v-diffusion-pytorch) setup (Windows, UV, CUDA 11.8)"
+description = "Harmonai Dance Diffusion (sample-generator + v-diffusion-pytorch) setup (macOS, UV, MPS/CPU)"
 requires-python = "==3.11.*"
 dependencies = [
     "sample-generator",
@@ -27,20 +27,11 @@ sample-generator = { git = "https://github.com/harmonai-org/sample-generator", r
 # Equivalent of: git clone --recursive https://github.com/crowsonkb/v-diffusion-pytorch && pip install -e .
 v-diffusion-pytorch = { git = "https://github.com/crowsonkb/v-diffusion-pytorch", rev = "master" }
 
-torch = [
-    { index = "pytorch-cu118", marker = "sys_platform == 'win32'" },
-]
-torchvision = [
-    { index = "pytorch-cu118", marker = "sys_platform == 'win32'" },
-]
-torchaudio = [
-    { index = "pytorch-cu118", marker = "sys_platform == 'win32'" },
-]
-
-[[tool.uv.index]]
-name = "pytorch-cu118"
-url = "https://download.pytorch.org/whl/cu118"
-explicit = true
+# No custom index needed on macOS: PyPI's default torch wheels for macOS
+# already include Apple Silicon MPS (GPU) acceleration. There is no separate
+# "CUDA build" for macOS since NVIDIA CUDA does not run on Apple hardware.
+# The Dance Diffusion notebook already checks for `torch.backends.mps.is_available()`
+# and falls back to CPU otherwise, so no code changes are needed here either.
 
 [dependency-groups]
 dev = [
